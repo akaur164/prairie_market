@@ -1,0 +1,115 @@
+<div style="max-width: 1200px; margin: 0 auto; padding: 30px; font-family: Arial, sans-serif;">
+
+  <header style="text-align: center; padding: 30px; background-color: #f3f3f3; border-radius: 10px; margin-bottom: 25px;">
+    <h1 style="margin: 0; font-size: 42px;">
+      Prairie Market
+    </h1>
+
+    <h2 style="margin-top: 10px; font-weight: normal;">
+      Discover Quality Products for Every Lifestyle
+    </h2>
+
+    <p>
+      Shop electronics, clothing, frozen meals, home products, and more.
+    </p>
+  </header>
+
+  <section style="text-align: center; margin-bottom: 25px;">
+  <%= form_with url: root_path, method: :get, local: true do %>
+
+    <%= text_field_tag :search,
+                       params[:search],
+                       placeholder: "Search products...",
+                       style: "padding: 12px; width: 300px; border: 1px solid #aaa; border-radius: 6px;" %>
+
+    <%= select_tag :category,
+                   options_from_collection_for_select(
+                     @categories,
+                     :id,
+                     :name,
+                     params[:category]
+                   ),
+                   include_blank: "All Categories",
+                   style: "padding: 12px; border: 1px solid #aaa; border-radius: 6px;" %>
+
+    <%= submit_tag "Search",
+                   style: "padding: 12px 20px; background-color: #222; color: white; border: none; border-radius: 6px;" %>
+
+    <%= link_to "Clear",
+                root_path,
+                style: "margin-left: 10px; text-decoration: none;" %>
+
+  <% end %>
+</section>
+
+  <section style="text-align: center; margin-bottom: 30px;">
+    <h3>Browse by Category</h3>
+
+    <%= link_to "All Products",
+                root_path(search: params[:search]),
+                style: "margin: 5px; padding: 10px 16px; display: inline-block; border: 1px solid #333; border-radius: 6px; text-decoration: none;" %>
+
+    <% @categories.each do |category| %>
+      <%= link_to category.name,
+                  root_path(category: category.id, search: params[:search]),
+                  style: "margin: 5px; padding: 10px 16px; display: inline-block; border: 1px solid #333; border-radius: 6px; text-decoration: none;" %>
+    <% end %>
+  </section>
+
+  <h2 style="text-align: center; margin-bottom: 25px;">
+    Our Products
+  </h2>
+
+  <% if @products.any? %>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px;">
+
+      <% @products.each do |product| %>
+        <div style="border: 1px solid #ddd; border-radius: 10px; padding: 18px; background-color: white;">
+
+          <div style="text-align: center; min-height: 180px;">
+            <% if product.image.attached? %>
+              <%= image_tag product.image,
+                            style: "width: 100%; max-width: 220px; height: 170px; object-fit: cover; border-radius: 8px;" %>
+            <% else %>
+              <div style="height: 170px; display: flex; align-items: center; justify-content: center; background-color: #eeeeee; border-radius: 8px;">
+                No Image Available
+              </div>
+            <% end %>
+          </div>
+
+          <h3 style="margin-bottom: 8px;">
+            <%= product.name %>
+          </h3>
+
+          <p style="min-height: 55px;">
+            <%= truncate(product.description, length: 90) %>
+          </p>
+
+          <p>
+            <strong>Category:</strong>
+            <%= product.category.name %>
+          </p>
+
+          <p style="font-size: 20px;">
+            <strong><%= number_to_currency(product.price) %></strong>
+          </p>
+
+          <%= link_to "View Product",
+                      product_path(product),
+                      style: "display: inline-block; padding: 10px 16px; background-color: #222; color: white; text-decoration: none; border-radius: 6px;" %>
+        </div>
+      <% end %>
+
+    </div>
+  <% else %>
+    <div style="text-align: center; padding: 40px; background-color: #f3f3f3; border-radius: 10px;">
+      <h3>No products found</h3>
+      <p>Try a different product name, description, or category.</p>
+
+      <%= link_to "Show All Products",
+                  root_path,
+                  style: "display: inline-block; padding: 10px 16px; background-color: #222; color: white; text-decoration: none; border-radius: 6px;" %>
+    </div>
+  <% end %>
+
+</div>
