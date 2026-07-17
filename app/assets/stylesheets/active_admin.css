@@ -1,3 +1,60 @@
 @import "tailwindcss";
 
 @config "../../../tailwind-active_admin.config.js";
+body.active_admin {
+  background: #f4f6f8;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #1f2937;
+}
+
+body.active_admin table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: white;
+  border: 1px solid #cbd5e1;
+}
+
+body.active_admin table th {
+  background: #1f2937;
+  color: white;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  text-align: left;
+}
+
+body.active_admin table td {
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  vertical-align: top;
+}
+
+body.active_admin table tr:nth-child(even) {
+  background: #f1f5f9;
+}
+
+body.active_admin table tr:hover {
+  background: #e2e8f0;
+}
+
+body.active_admin a {
+  color: #1d4ed8;
+}
+
+body.active_admin input,
+body.active_admin textarea,
+body.active_admin select {
+  padding: 8px;
+  border: 1px solid #94a3b8;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+body.active_admin input[type="submit"] {
+  padding: 10px 18px;
+  background: #1d4ed8;
+  color: white;
+  border: 0;
+  border-radius: 5px;
+  cursor: pointer;
+}

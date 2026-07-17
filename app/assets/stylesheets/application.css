@@ -8,3 +8,108 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+body {
+  margin: 0;
+  padding: 25px;
+  background: #f4f6f8;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #1f2937;
+}
+
+h1,
+h2,
+h3 {
+  color: #1f2937;
+}
+
+a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: white;
+  border: 1px solid #d1d5db;
+}
+
+table th {
+  background: #1f2937;
+  color: white;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  text-align: left;
+}
+
+table td {
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  vertical-align: top;
+}
+
+table tr:nth-child(even) {
+  background: #f3f4f6;
+}
+
+table tr:hover {
+  background: #e5e7eb;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  max-width: 600px;
+  padding: 10px;
+  margin: 6px 0 15px;
+  border: 1px solid #9ca3af;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+textarea {
+  min-height: 120px;
+}
+
+input[type="submit"],
+button {
+  width: auto;
+  padding: 10px 18px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover,
+button:hover {
+  background: #1d4ed8;
+}
+
+.pagination {
+  margin-top: 20px;
+}
+
+.pagination a,
+.pagination span {
+  display: inline-block;
+  padding: 8px 12px;
+  margin: 2px;
+  border: 1px solid #d1d5db;
+  background: white;
+}
+
+.flash {
+  padding: 12px;
+  margin: 15px 0;
+  background: #dcfce7;
+  border: 1px solid #86efac;
+  border-radius: 5px;
+}
