@@ -1,0 +1,50 @@
+<nav style="background-color: #222; color: white; padding: 15px 25px;">
+  <div style="max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
+
+    <div>
+      <%= link_to "Prairie Market",
+                  root_path,
+                  style: "color: white; text-decoration: none; font-size: 22px; font-weight: bold;" %>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 15px;">
+
+      <%= link_to "Products",
+                  root_path,
+                  style: "color: white; text-decoration: none;" %>
+
+      <%= link_to "Cart",
+                  cart_path,
+                  style: "color: white; text-decoration: none;" %>
+
+      <% if customer_signed_in? %>
+
+        <span>
+          Welcome, <%= current_customer.name %>
+        </span>
+
+        <%= link_to "My Orders",
+                    my_orders_path,
+                    style: "color: white; text-decoration: none;" %>
+
+        <%= link_to "Log Out",
+                    destroy_customer_session_path,
+                    data: { turbo_method: :delete },
+                    style: "color: white; text-decoration: none; background-color: #c62828; padding: 8px 12px; border-radius: 5px;" %>
+
+      <% else %>
+
+        <%= link_to "Sign Up",
+                    new_customer_registration_path,
+                    style: "color: white; text-decoration: none;" %>
+
+        <%= link_to "Log In",
+                    new_customer_session_path,
+                    style: "color: white; text-decoration: none; background-color: #2e7d32; padding: 8px 12px; border-radius: 5px;" %>
+
+      <% end %>
+
+    </div>
+
+  </div>
+</nav>
