@@ -1,6 +1,6 @@
 class CheckoutController < ApplicationController
   before_action :initialize_cart
-  before_action :load_cart, only: [:new, :create, :create_session]
+  before_action :load_cart, only: [ :new, :create, :create_session ]
 
   def new
   end
@@ -38,7 +38,7 @@ class CheckoutController < ApplicationController
     order = create_order(customer, taxes)
 
     stripe_session = Stripe::Checkout::Session.create(
-      payment_method_types: ["card"],
+      payment_method_types: [ "card" ],
       mode: "payment",
 
       line_items: [
