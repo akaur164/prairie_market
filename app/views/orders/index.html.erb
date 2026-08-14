@@ -1,0 +1,39 @@
+<div style="margin-bottom:20px; font-size:14px;">
+  <%= link_to "Home", root_path, style: "text-decoration:none;" %>
+  &nbsp;&gt;&nbsp;
+  <span>My Orders</span>
+</div>
+<div style="max-width: 1000px; margin: 40px auto; font-family: Arial, sans-serif;">
+  <h1>My Orders</h1>
+
+  <% if @orders.any? %>
+    <% @orders.each do |order| %>
+      <div style="border: 1px solid #ddd; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
+        <h2>Order #<%= order.id %></h2>
+
+        <p>
+          <strong>Date:</strong>
+          <%= order.created_at.strftime("%B %d, %Y at %I:%M %p") %>
+        </p>
+
+        <p>
+          <strong>Total:</strong>
+          <%= number_to_currency(order.total) %>
+        </p>
+
+        <p>
+          <strong>Items:</strong>
+          <%= order.order_items.sum(:quantity) %>
+        </p>
+
+        <%= link_to "View Invoice",
+                    order_path(order),
+                    style: "display: inline-block; padding: 10px 16px; background-color: #222; color: white; text-decoration: none; border-radius: 5px;" %>
+      </div>
+    <% end %>
+  <% else %>
+    <p>You have not placed any orders yet.</p>
+
+    <%= link_to "Continue Shopping", root_path %>
+  <% end %>
+</div>
