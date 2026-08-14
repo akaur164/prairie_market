@@ -1,0 +1,154 @@
+<div style="max-width: 1100px; margin: 30px auto; padding: 0 20px;">
+
+  <div style="margin-bottom: 20px;">
+    <%= link_to "Home", root_path, style: "text-decoration:none;" %>
+    &nbsp;&gt;&nbsp;
+    <%= link_to "Cart", cart_path, style: "text-decoration:none;" %>
+    &nbsp;&gt;&nbsp;
+    <strong>Checkout</strong>
+  </div>
+
+  <h1 style="text-align:center; margin-bottom:30px;">
+    Checkout
+  </h1>
+
+  <% if @cart_items.any? %>
+
+    <div style="display:flex; gap:40px; align-items:flex-start; flex-wrap:wrap;">
+
+      <!-- Order Summary -->
+      <div style="flex:1; min-width:350px; background:#fff; border:1px solid #ddd; border-radius:10px; padding:25px;">
+
+        <h2>Order Summary</h2>
+
+        <% @cart_items.each do |item| %>
+
+          <div style="padding:15px 0; border-bottom:1px solid #ddd;">
+
+            <strong><%= item[:product].name %></strong>
+
+            <p>
+              Quantity:
+              <%= item[:quantity] %>
+            </p>
+
+            <p>
+              Price:
+              <%= number_to_currency(item[:product].price) %>
+            </p>
+
+            <p>
+              Subtotal:
+              <%= number_to_currency(item[:subtotal]) %>
+            </p>
+
+          </div>
+
+        <% end %>
+
+      </div>
+
+      <!-- Customer Information -->
+      <div style="flex:1; min-width:350px; background:#fff; border:1px solid #ddd; border-radius:10px; padding:25px;">
+
+        <h2>Customer Information</h2>
+
+        <%= form_with url: checkout_create_session_path,
+                      method: :post,
+                      local: true,
+                      data: { turbo: false } do |form| %>
+
+          <div style="margin-bottom:20px;">
+            <%= form.label :name, "Full Name" %><br>
+            <%= form.text_field :name,
+                                required: true,
+                                style: "width:100%; padding:10px;" %>
+          </div>
+
+          <div style="margin-bottom:20px;">
+            <%= form.label :email %><br>
+            <%= form.email_field :email,
+                                 required: true,
+                                 style: "width:100%; padding:10px;" %>
+          </div>
+
+          <div style="margin-bottom:20px;">
+            <%= form.label :address %><br>
+            <%= form.text_field :address,
+                                required: true,
+                                style: "width:100%; padding:10px;" %>
+          </div>
+
+          <div style="margin-bottom:20px;">
+            <%= form.label :city %><br>
+            <%= form.text_field :city,
+                                required: true,
+                                style: "width:100%; padding:10px;" %>
+          </div>
+
+          <div style="margin-bottom:20px;">
+            <%= form.label :province %><br>
+
+            <%= form.select :province,
+              [
+                ["Alberta","AB"],
+                ["British Columbia","BC"],
+                ["Manitoba","MB"],
+                ["New Brunswick","NB"],
+                ["Newfoundland and Labrador","NL"],
+                ["Northwest Territories","NT"],
+                ["Nova Scotia","NS"],
+                ["Nunavut","NU"],
+                ["Ontario","ON"],
+                ["Prince Edward Island","PE"],
+                ["Quebec","QC"],
+                ["Saskatchewan","SK"],
+                ["Yukon","YT"]
+              ],
+              { prompt: "Select a province" },
+              { required: true,
+                style: "width:100%; padding:10px;" } %>
+
+          </div>
+
+          <div style="margin-bottom:25px;">
+            <%= form.label :postal_code, "Postal Code" %><br>
+
+            <%= form.text_field :postal_code,
+                                required: true,
+                                style: "width:100%; padding:10px;" %>
+          </div>
+
+          <%= form.submit "Pay with Stripe",
+                          style: "width:100%;
+                                  padding:14px;
+                                  background:#635BFF;
+                                  color:white;
+                                  border:none;
+                                  border-radius:8px;
+                                  font-size:16px;
+                                  cursor:pointer;" %>
+
+        <% end %>
+
+      </div>
+
+    </div>
+
+  <% else %>
+
+    <h2>Your cart is empty.</h2>
+
+    <%= link_to "Continue Shopping",
+                products_path,
+                style: "display:inline-block;
+                        margin-top:20px;
+                        padding:12px 20px;
+                        background:#222;
+                        color:white;
+                        text-decoration:none;
+                        border-radius:6px;" %>
+
+  <% end %>
+
+</div>
