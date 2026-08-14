@@ -1,0 +1,105 @@
+<div style="max-width: 1000px; margin: 0 auto; padding: 30px; font-family: Arial, sans-serif;">
+
+  <h1 style="text-align: center; margin-bottom: 25px;">
+    Your Shopping Cart
+  </h1>
+
+  <% if notice.present? %>
+    <p style="padding: 12px; background-color: #e8f5e9; border: 1px solid #9ccc9c; border-radius: 6px;">
+      <%= notice %>
+    </p>
+  <% end %>
+
+  <% if @cart_items.any? %>
+
+    <% @cart_items.each do |item| %>
+      <% product = item[:product] %>
+
+      <div style="display: flex; gap: 20px; align-items: center; border: 1px solid #ddd; border-radius: 10px; padding: 18px; margin-bottom: 18px;">
+
+        <div style="width: 150px; text-align: center;">
+          <% if product.image.attached? %>
+            <%= image_tag product.image,
+                          style: "width: 140px; height: 110px; object-fit: cover; border-radius: 8px;" %>
+          <% else %>
+            <div style="width: 140px; height: 110px; background-color: #eeeeee; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
+              No Image
+            </div>
+          <% end %>
+        </div>
+
+        <div style="flex: 1;">
+          <h2 style="margin-top: 0;">
+            <%= product.name %>
+          </h2>
+
+          <p>
+            <strong>Price:</strong>
+            <%= number_to_currency(product.price) %>
+          </p>
+
+          <p>
+            <strong>Subtotal:</strong>
+            <%= number_to_currency(item[:subtotal]) %>
+          </p>
+        </div>
+
+        <div style="min-width: 220px;">
+
+          <%= form_with url: update_cart_path(product),
+                        method: :patch,
+                        local: true do %>
+
+            <%= number_field_tag :quantity,
+                                 item[:quantity],
+                                 min: 1,
+                                 style: "width: 70px; padding: 8px; margin-right: 5px;" %>
+
+            <%= submit_tag "Update",
+                           style: "padding: 9px 14px; background-color: #222; color: white; border: none; border-radius: 5px; cursor: pointer;" %>
+
+          <% end %>
+
+          <div style="margin-top: 10px;">
+            <%= button_to "Remove",
+                          remove_from_cart_path(product),
+                          method: :delete,
+                          style: "padding: 9px 14px; background-color: #b00020; color: white; border: none; border-radius: 5px; cursor: pointer;" %>
+          </div>
+
+        </div>
+
+      </div>
+    <% end %>
+
+    <div style="text-align: right; padding: 20px; background-color: #f3f3f3; border-radius: 10px; margin-top: 25px;">
+      <h2>
+        Cart Total:
+        <%= number_to_currency(@cart_total) %>
+      </h2>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; margin-top: 25px;">
+      <%= link_to "Continue Shopping",
+                  root_path,
+                  style: "padding: 12px 18px; border: 1px solid #333; border-radius: 6px; text-decoration: none;" %>
+
+      <%= link_to "Proceed to Checkout",
+            checkout_path,
+            style: "padding: 12px 18px; background-color: #222; color: white; border-radius: 6px; text-decoration: none;" %>
+    </div>
+
+  <% else %>
+
+    <div style="text-align: center; padding: 40px; background-color: #f3f3f3; border-radius: 10px;">
+      <h2>Your cart is empty</h2>
+      <p>Add some products to begin shopping.</p>
+
+      <%= link_to "Browse Products",
+                  root_path,
+                  style: "display: inline-block; padding: 12px 18px; background-color: #222; color: white; text-decoration: none; border-radius: 6px;" %>
+    </div>
+
+  <% end %>
+
+</div>
