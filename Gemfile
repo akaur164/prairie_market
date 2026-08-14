@@ -15,6 +15,12 @@ gem "jbuilder"
 gem "devise"
 gem "activeadmin", "~> 3.4"
 
+# Product pagination for feature 2.5
+gem "kaminari"
+
+# Stripe payment processing
+gem "stripe"
+
 gem "tzinfo-data", platforms: %i[windows jruby]
 
 gem "solid_cache"
@@ -42,3 +48,7 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+
+
+gem "dartsass-rails", "~> 0.5.1"
