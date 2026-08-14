@@ -1,42 +1,57 @@
-<div style="max-width: 800px; margin: 40px auto; padding: 30px; font-family: Arial, sans-serif;">
-
-  <%= link_to "← Back to Products",
+<div style="margin-bottom: 20px; font-size: 14px;">
+  <%= link_to "Home",
               root_path,
               style: "text-decoration: none;" %>
 
-  <div style="border: 1px solid #ddd; border-radius: 10px; padding: 30px; margin-top: 20px;">
+  &nbsp;&gt;&nbsp;
 
-    <h1><%= @product.name %></h1>
+  <%= link_to "Products",
+              root_path,
+              style: "text-decoration: none;" %>
 
-    <div style="text-align: center; margin: 25px 0;">
-      <% if @product.image.attached? %>
-        <%= image_tag @product.image,
-                      style: "width: 100%; max-width: 450px; max-height: 400px; object-fit: cover; border-radius: 10px;" %>
-      <% else %>
-        <div style="height: 250px; display: flex; align-items: center; justify-content: center; background-color: #eeeeee; border-radius: 10px;">
-          No Image Available
-        </div>
-      <% end %>
+  &nbsp;&gt;&nbsp;
+
+  <span><%= @product.name %></span>
+</div>
+
+<%= link_to "← Back to Products",
+            root_path,
+            style: "text-decoration: none;" %>
+
+<h1><%= @product.name %></h1>
+
+<div style="text-align: center; margin: 25px 0;">
+  <% if @product.image.attached? %>
+    <%= image_tag @product.image.variant(resize_to_limit: [600, 600]),
+              style: "width: 100%; max-width: 450px; max-height: 400px; object-fit: cover; border-radius: 10px;" %>
+  <% else %>
+    <div style="height: 250px; display: flex; align-items: center; justify-content: center; background-color: #eeeeee; border-radius: 10px;">
+      No Image Available
     </div>
+  <% end %>
+</div>
 
-    <p>
-      <strong>Description:</strong>
-    </p>
+<p>
+  <strong>Description:</strong>
+</p>
 
-    <p>
-      <%= @product.description %>
-    </p>
+<p>
+  <%= @product.description %>
+</p>
 
-    <p>
-      <strong>Category:</strong>
-      <%= @product.category.name %>
-    </p>
+<p>
+  <strong>Category:</strong>
+  <%= @product.category.name %>
+</p>
 
-    <p style="font-size: 24px;">
-      <strong>Price:</strong>
-      <%= number_to_currency(@product.price) %>
-    </p>
+<p style="font-size: 24px;">
+  <strong>Price:</strong>
+  <%= number_to_currency(@product.price) %>
+</p>
 
-  </div>
-
+<div style="margin-top: 30px;">
+  <%= button_to "Add to Cart",
+                add_to_cart_path(@product),
+                method: :post,
+                style: "padding: 14px 22px; background-color: #222; color: white; border: none; border-radius: 6px; font-size: 16px; cursor: pointer;" %>
 </div>
