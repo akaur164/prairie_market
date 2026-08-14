@@ -1,0 +1,110 @@
+<div style="margin-bottom:20px; font-size:14px;">
+  <%= link_to "Home", root_path, style: "text-decoration:none;" %>
+  &nbsp;&gt;&nbsp;
+  <%= link_to "My Orders", my_orders_path, style: "text-decoration:none;" %>
+  &nbsp;&gt;&nbsp;
+  <span>Order #<%= @order.id %></span>
+</div>
+<div style="max-width: 900px; margin: 30px auto; padding: 30px; font-family: Arial, sans-serif;">
+
+  <div style="text-align: center; margin-bottom: 30px;">
+    <h1>Order Confirmed</h1>
+    <p>Thank you for shopping with Prairie Market.</p>
+  </div>
+
+  <div style="background-color: #f3f3f3; padding: 20px; border-radius: 10px; margin-bottom: 25px;">
+    <h2>Order #<%= @order.id %></h2>
+
+    <p>
+      <strong>Status:</strong>
+      <%= @order.status %>
+    </p>
+
+    <p>
+      <strong>Order Date:</strong>
+      <%= @order.created_at.strftime("%B %d, %Y at %I:%M %p") %>
+    </p>
+  </div>
+
+  <div style="border: 1px solid #ddd; padding: 20px; border-radius: 10px; margin-bottom: 25px;">
+    <h2>Customer Information</h2>
+
+    <p><strong>Name:</strong> <%= @order.customer.name %></p>
+    <p><strong>Email:</strong> <%= @order.customer.email %></p>
+    <p><strong>Address:</strong> <%= @order.customer.address %></p>
+    <p>
+      <strong>City and Province:</strong>
+      <%= @order.customer.city %>, <%= @order.customer.province %>
+    </p>
+    <p><strong>Postal Code:</strong> <%= @order.customer.postal_code %></p>
+  </div>
+
+  <div style="margin-bottom: 25px;">
+    <h2>Products</h2>
+
+    <% @order.order_items.each do |item| %>
+      <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #ddd; padding: 15px 0;">
+        <div>
+          <strong><%= item.product.name %></strong>
+          <p style="margin: 5px 0;">
+            Quantity: <%= item.quantity %>
+          </p>
+          <p style="margin: 5px 0;">
+            Unit Price: <%= number_to_currency(item.unit_price) %>
+          </p>
+        </div>
+
+        <div>
+          <strong><%= number_to_currency(item.subtotal) %></strong>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div style="max-width: 400px; margin-left: auto; background-color: #f3f3f3; padding: 20px; border-radius: 10px;">
+    <p style="display: flex; justify-content: space-between;">
+      <strong>Subtotal:</strong>
+      <span><%= number_to_currency(@order.subtotal) %></span>
+    </p>
+
+    <% if @order.gst.to_d > 0 %>
+      <p style="display: flex; justify-content: space-between;">
+        <strong>GST:</strong>
+        <span><%= number_to_currency(@order.gst) %></span>
+      </p>
+    <% end %>
+
+    <% if @order.pst.to_d > 0 %>
+      <p style="display: flex; justify-content: space-between;">
+        <strong>PST:</strong>
+        <span><%= number_to_currency(@order.pst) %></span>
+      </p>
+    <% end %>
+
+    <% if @order.hst.to_d > 0 %>
+      <p style="display: flex; justify-content: space-between;">
+        <strong>HST:</strong>
+        <span><%= number_to_currency(@order.hst) %></span>
+      </p>
+    <% end %>
+
+    <p style="display: flex; justify-content: space-between;">
+      <strong>Tax Total:</strong>
+      <span><%= number_to_currency(@order.tax_total) %></span>
+    </p>
+
+    <hr>
+
+    <h2 style="display: flex; justify-content: space-between;">
+      <span>Total:</span>
+      <span><%= number_to_currency(@order.total) %></span>
+    </h2>
+  </div>
+
+  <div style="text-align: center; margin-top: 30px;">
+    <%= link_to "Continue Shopping",
+                products_path,
+                style: "display: inline-block; padding: 12px 18px; background-color: #222; color: white; text-decoration: none; border-radius: 6px;" %>
+  </div>
+
+</div>

@@ -1,0 +1,103 @@
+<div style="max-width: 600px; margin: 40px auto; padding: 30px; font-family: Arial, sans-serif; border: 1px solid #ddd; border-radius: 10px;">
+
+  <h1 style="text-align: center;">Create Customer Account</h1>
+
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |form| %>
+    <%= render "customers/shared/error_messages", resource: resource %>
+
+    <div style="margin-bottom: 15px;">
+      <%= form.label :name, "Full Name" %><br>
+      <%= form.text_field :name,
+                          autofocus: true,
+                          required: true,
+                          style: "width: 100%; padding: 10px;" %>
+    </div>
+
+    <div style="margin-bottom: 15px;">
+      <%= form.label :email %><br>
+      <%= form.email_field :email,
+                           autocomplete: "email",
+                           required: true,
+                           style: "width: 100%; padding: 10px;" %>
+    </div>
+
+    <div style="margin-bottom: 15px;">
+      <%= form.label :address %><br>
+      <%= form.text_field :address,
+                          required: true,
+                          style: "width: 100%; padding: 10px;" %>
+    </div>
+
+    <div style="margin-bottom: 15px;">
+      <%= form.label :city %><br>
+      <%= form.text_field :city,
+                          required: true,
+                          style: "width: 100%; padding: 10px;" %>
+    </div>
+
+    <div style="margin-bottom: 15px;">
+      <%= form.label :province %><br>
+      <%= form.select :province,
+                      [
+                        ["Alberta", "AB"],
+                        ["British Columbia", "BC"],
+                        ["Manitoba", "MB"],
+                        ["New Brunswick", "NB"],
+                        ["Newfoundland and Labrador", "NL"],
+                        ["Northwest Territories", "NT"],
+                        ["Nova Scotia", "NS"],
+                        ["Nunavut", "NU"],
+                        ["Ontario", "ON"],
+                        ["Prince Edward Island", "PE"],
+                        ["Quebec", "QC"],
+                        ["Saskatchewan", "SK"],
+                        ["Yukon", "YT"]
+                      ],
+                      { prompt: "Select a province" },
+                      {
+                        required: true,
+                        style: "width: 100%; padding: 10px;"
+                      } %>
+    </div>
+
+    <div style="margin-bottom: 15px;">
+      <%= form.label :postal_code, "Postal Code" %><br>
+      <%= form.text_field :postal_code,
+                          required: true,
+                          style: "width: 100%; padding: 10px;" %>
+    </div>
+
+    <div style="margin-bottom: 15px;">
+      <%= form.label :password %>
+
+      <% if @minimum_password_length %>
+        <em>(<%= @minimum_password_length %> characters minimum)</em>
+      <% end %>
+
+      <br>
+
+      <%= form.password_field :password,
+                              autocomplete: "new-password",
+                              required: true,
+                              style: "width: 100%; padding: 10px;" %>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+      <%= form.label :password_confirmation %><br>
+      <%= form.password_field :password_confirmation,
+                              autocomplete: "new-password",
+                              required: true,
+                              style: "width: 100%; padding: 10px;" %>
+    </div>
+
+    <div>
+      <%= form.submit "Create Account",
+                      style: "width: 100%; padding: 12px; background-color: #222; color: white; border: none; border-radius: 6px; cursor: pointer;" %>
+    </div>
+  <% end %>
+
+  <div style="margin-top: 20px; text-align: center;">
+    <%= render "customers/shared/links" %>
+  </div>
+
+</div>
