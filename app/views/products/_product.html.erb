@@ -1,0 +1,35 @@
+<div class="card">
+
+  <div style="text-align: center; min-height: 180px;">
+    <% if product.image.attached? %>
+      <<%= image_tag product.image,
+              style: "width: 100%; max-width: 220px; height: 170px; object-fit: cover; border-radius: 8px;" %>
+    <% else %>
+      <div style="height: 170px; display: flex; align-items: center; justify-content: center; background-color: #eeeeee; border-radius: 8px;">
+        No Image Available
+      </div>
+    <% end %>
+  </div>
+
+  <h3>
+    <%= product.name %>
+  </h3>
+
+  <p>
+    <%= truncate(product.description, length: 90) %>
+  </p>
+
+  <p>
+    <strong>Category:</strong>
+    <%= product.category.name %>
+  </p>
+
+  <p>
+    <strong><%= number_to_currency(product.price) %></strong>
+  </p>
+
+  <%= link_to "View Product",
+              product_path(product),
+              class: "primary-button" %>
+
+</div>
